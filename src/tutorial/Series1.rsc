@@ -15,7 +15,7 @@ import IO;
  */
  
 void helloWorld() {
-  println("Hello A-TEST 2024");
+  println("Hello SLE 2024/2025");
 } 
 
 /*

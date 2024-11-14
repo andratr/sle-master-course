@@ -59,16 +59,12 @@ Summary mySummarizer(loc origin, start[Form] input) {
 data Command
   = runQuestionnaire(start[Form] form)
   | compileQuestionnaire(start[Form] form)
-  | saveOracle(start[Form] form)
-  | runTestar(start[Form] form)
   ;
 
 
 rel[loc,Command] myLenses(start[Form] input) 
   = {<input@\loc, runQuestionnaire(input, title="Run...")>,
-     <input.src, compileQuestionnaire(input, title="Compile")>,
-     <input.src, saveOracle(input, title="Save oracle")>,
-     <input.src, runTestar(input, title="Run Testar")>};
+     <input.src, compileQuestionnaire(input, title="Compile")>};
 
 
 rel[loc,Command] testLenses(start[Tests] input) 
@@ -86,21 +82,6 @@ void myCommands(compileQuestionnaire(start[Form] form)) {
     compile(form);
 }
 
-void myCommands(saveOracle(start[Form] form)) {
-    loc l = form.src.top[extension="py"];
-    writeFile(l, genTestarOracle(form));
-}
-
-void myCommands(runTestar(start[Form] form)) {
-    loc l = form.src.top[extension="py"];
-    writeFile(l, genTestarOracle(form));
-    loc resolved = resolveLocation(form.src);
-    <output, code> = execWithCode(|PATH:///python3|, workingDir=resolveLocation(|project://testing-dsls-with-dsls/|),
-        args=["src/testar/testingQLprograms.py", resolved[extension="html"].path]);
-    loc out = form.src.top[extension="testar"];
-    writeFile(out, output);
-    edit(out);
-}
 
 
 void testCommands(runTestSuite(start[Tests] tests)) {

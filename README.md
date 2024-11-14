@@ -1,6 +1,9 @@
 
 # SLE Master Course
 
+This document contains the information relevant for the master course [Software Language Engineering](https://ocasys.rug.nl/current/catalog/course/WMCS037-05) at University of Groningen. 
+
+Note: the official course description refers to the book _Software Languages_, by Ralf Laemmel; I have decided to *not* use that book, but instead rely on supplemental material as indicated per week in the schedule below. Hence, the exam will be open "book", you may consult printed out papers of the material during the exam. 
 
 ## Preliminaries for the lab
 
@@ -80,6 +83,8 @@ You can find different types of tests in the file `alltests.ql`, divided over di
 You should use this file to test your implementation of the type checker and the interpreter. 
 
 ## Course Schedule
+
+For dates, times and rooms: https://rooster.rug.nl/#/en/current/schedule/course-WMCS037-05/timeRange=all 
 
 ### Week 1
 

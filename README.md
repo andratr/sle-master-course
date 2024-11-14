@@ -93,7 +93,7 @@ Background material: When and how to develop domain-specific languages, https://
 
 Lecture: syntax and structure. Parsing, disambiguation, Abstract Syntax Trees (ASTs), name binding.
 
-Lab: syntax definition of QL. Name resolution. `Syntax.rsc`
+Lab: syntax definition of QL. Name resolution. `Syntax.rsc`, `Resolve.rsc`.
 
 Background material: Pure and declarative syntax definition: paradise lost and regained,  https://doi.org/10.1145/1869459.1869535 
 
@@ -113,7 +113,7 @@ Lab: evaluator, renderer (abstract) in `Eval.rsc`; web app in `App.rsc`. Think a
 
 Lecture: code generation
 
-Lab: compiler for QL to HTML and plain Javascript (do not use a framework!). Ensure you implement the fixpoint behavior (see `Eval.rsc`) correctly, and be aware that Javascript has floats, and no integers. `Compile.rsc`
+Lab: compiler for QL to HTML and plain Javascript (do not use a framework!). Ensure you implement the fixpoint behavior (see `Eval.rsc`) correctly, and be aware that Javascript has floats but not integers. `Compile.rsc`
 
 Background material: Code Generation by Model Transformation,  https://doi.org/10.1007/978-3-540-69927-9_13
 
@@ -129,7 +129,7 @@ Background material: Tutorial Online Partial Evaluation, https://doi.org/10.4855
 
 Lecture: modularity, evolution, language extension
 
-Lab: pick one of the following language extensions and modify all aspects of your base QL implementation to support it. Think about modularity!
+Lab: pick one of the following language extensions and modify/evolve/extend *all* relevant aspects of your base QL implementation to support it. Think about modularity!
 
 - Enum data type. Allow declaration of an enum as part of a form, with alternatives (and their human-readable labels); ensure type checking when used in expressions (which kinds are relevant?). Render as a (multi-select) dropdown list in HTML. Possible syntax:
     ```

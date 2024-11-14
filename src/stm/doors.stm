@@ -1,0 +1,16 @@
+machine Doors
+
+// hello
+
+state closed
+  open => opened
+  lock => locked
+end
+
+state opened
+  close => closed
+end
+
+state locked
+  unlock => closed
+end

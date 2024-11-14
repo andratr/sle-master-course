@@ -74,9 +74,7 @@ TestQL is DSL for testing QL. In fact, it's an extension of the QL language usin
 TestQL files end with the extension `testql`, and have IDE support enabled, just like the QL programs written in files with the `myql` extension. For the test files the IDE support includes clickable links:
 
 - to execute the whole test suite 
-
 - to show test coverage of the test suite (i.e. how much of the syntax of the DSL has been covered by tests.)
-
 - to run an individual test.
 
 You can find different types of tests in the file `alltests.ql`, divided over different sections: static checking, dynamics semantics and syntax, and rendering.
@@ -108,6 +106,8 @@ Lecture: static checking.
 
 Lab: type checker for QL, cyclic dependency check. `Check.rsc` 
 
+Background material: Type Systems, https://doi.org/10.1145/234313.234418 
+
 ### Week 4
 
 Lecture: interpreters, Salix library.
@@ -128,7 +128,9 @@ Lecture: program transformation and model transformation. Partial evaluation.
 
 Lab: flattening, formatting (pretty printing), dependency visualization, partial evaluation. `Flatten.rsc`, `Format.rsc`, `Visualize.rsc`, `PartialEvaluation.rsc`.
 
-Background material: Tutorial Online Partial Evaluation, https://doi.org/10.48550/arXiv.1109.0781
+Background material: 
+- Program transformation mechanics, https://dspace.library.uu.nl/handle/1874/24002 
+- Tutorial Online Partial Evaluation, https://doi.org/10.48550/arXiv.1109.0781
 
 ### Week 7
 

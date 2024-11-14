@@ -2,7 +2,7 @@ module stm::Main
 
 
 import ParseTree;
-import Syntax;
+import stm::Syntax;
 // import Check;
 
 import util::LanguageServer;

@@ -8,7 +8,6 @@ module IDE
 import util::LanguageServer;
 import util::Reflective;
 import util::IDEServices;
-import util::ShellExec;
 import IO;
 import ValueIO;
 import List;
@@ -17,6 +16,7 @@ import vis::Charts;
 import Syntax;
 import Compile;
 import Check;
+import Resolve;
 import util::GenScript;
 import App;
 import Message;
@@ -32,7 +32,7 @@ set[LanguageService] myLanguageContributor() = {
     executor(myCommands),
     summarizer(mySummarizer
         , providesDocumentation = false
-        , providesDefinitions = false
+        , providesDefinitions = true
         , providesReferences = false
         , providesImplementations = false)
 };
@@ -53,7 +53,9 @@ data Command
   | showCoverage(start[Tests] tests);
 
 Summary mySummarizer(loc origin, start[Form] input) {
-  return summary(origin, messages = {<m.at, m> | Message m <- check(input) });
+  RefGraph g = resolve(input);
+  return summary(origin, messages = {<m.at, m> | Message m <- check(input) }
+            , definitions=g.useDef);
 }
 
 data Command

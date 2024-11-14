@@ -51,7 +51,7 @@ A full type checker of QL detects:
 - operands of invalid type to operators
 - duplicate prompts for different questions (warning)
 - cyclic data and control dependencies
-- warnings for empty conditional bodies (both if an else)
+- warnings for empty conditional bodies (both if and else)
 - warning for empty prompts
 - warning for useless conditions (i.e., true/false)
 

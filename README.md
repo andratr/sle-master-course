@@ -3,7 +3,7 @@
 
 This document contains the information relevant for the master course [Software Language Engineering](https://ocasys.rug.nl/current/catalog/course/WMCS037-05) at University of Groningen. 
 
-Note: the official course description refers to the book _Software Languages_, by Ralf Laemmel; I have decided to *not* use that book, but instead rely on supplemental material as indicated per week in the schedule below. Hence, the exam will be open "book", you may consult printed out papers of the material during the exam. 
+Note: the official course description refers to the book _Software Languages_, by Ralf Laemmel; I have decided to *not* use that book, but instead rely on supplemental material as indicated per week in the schedule below. Hence, the exam will be open "book", you may consult print-outs of the material during the exam. 
 
 ## Preliminaries for the lab
 
@@ -86,9 +86,9 @@ For dates, times and rooms: https://rooster.rug.nl/#/en/current/schedule/course-
 
 ### Week 1
 
-Lecture: introduction to the course. Domain-specific languages.
+Lecture: Domain-specific languages. Introduction to the course. 
 
-Lab assignment: warm-up exercises (see `tutorial/Series1.rsc` and `tutorial/Series2.rsc`).
+Lab: warm-up exercises (see `tutorial/Series1.rsc` and `tutorial/Series2.rsc`).
 
 Background material: When and how to develop domain-specific languages, https://doi.org/10.1145/1118890.1118892
 
@@ -96,9 +96,10 @@ Background material: When and how to develop domain-specific languages, https://
 
 Lecture: syntax and structure. Parsing, disambiguation, Abstract Syntax Trees (ASTs), name binding.
 
+
 Lab: syntax definition of QL. Name resolution. `Syntax.rsc`, `Resolve.rsc`.
 
-Background material: Pure and declarative syntax definition: paradise lost and regained,  https://doi.org/10.1145/1869459.1869535 
+Background material: Pure and declarative syntax definition: paradise lost and regained, https://doi.org/10.1145/1869459.1869535 
 
 ### Week 3
 

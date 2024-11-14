@@ -17,11 +17,11 @@ import vis::Charts;
 import Syntax;
 import Compile;
 import Check;
-import GenScript;
+import util::GenScript;
 import App;
 import Message;
 import ParseTree;
-import TestQL;
+import util::TestQL;
 
 
 set[LanguageService] myLanguageContributor() = {
@@ -137,7 +137,7 @@ list[DocumentSymbol] testOutliner(start[Tests] input)
 void main() {
     registerLanguage(
         language(
-            pathConfig(srcs = [|std:///|, |project://testing-dsls-with-dsls/src|]),
+            pathConfig(srcs = [|std:///|, |project://sle-master-course/src|]),
             "QL",
             "myql",
             "IDE",
@@ -146,7 +146,7 @@ void main() {
     );
     registerLanguage(
         language(
-            pathConfig(srcs = [|std:///|, |project://testing-dsls-with-dsls/src|]),
+            pathConfig(srcs = [|std:///|, |project://sle-master-course/src|]),
             "TestQL",
             "testql",
             "IDE",

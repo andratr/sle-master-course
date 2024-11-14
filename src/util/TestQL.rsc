@@ -1,4 +1,4 @@
-module TestQL
+module util::TestQL
 
 import Message;
 import util::IDEServices;

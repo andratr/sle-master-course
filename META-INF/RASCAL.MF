@@ -1,4 +1,4 @@
-Project-Name: testing-dsls-with-dsls
+Project-Name: sle-master-course
 Source: src
 Require-Libraries: |lib://rascal-lsp|
 

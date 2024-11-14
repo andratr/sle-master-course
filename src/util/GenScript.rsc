@@ -1,4 +1,4 @@
-module GenScript
+module util::GenScript
 
 import Syntax;
 import Eval;

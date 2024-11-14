@@ -76,8 +76,8 @@ TestQL files end with the extension `testql`, and have IDE support enabled, just
 
 - to run an individual test.
 
-You can find different types of tests in the file `alltests.ql`, divided over different sections. Below we detail three kinds of tests: static checking, dynamics semantics and syntax, and rendering.
-You can use the file to test your implementation of the type checker and the interpreter. 
+You can find different types of tests in the file `alltests.ql`, divided over different sections: static checking, dynamics semantics and syntax, and rendering.
+You should use this file to test your implementation of the type checker and the interpreter. 
 
 ## Course Schedule
 
@@ -87,11 +87,15 @@ Lecture: introduction to the course. Domain-specific languages.
 
 Lab assignment: warm-up exercises (see `tutorial/Series1.rsc` and `tutorial/Series2.rsc`).
 
+Background material: When and how to develop domain-specific languages, https://doi.org/10.1145/1118890.1118892
+
 ### Week 2
 
 Lecture: syntax and structure. Parsing, disambiguation, Abstract Syntax Trees (ASTs), name binding.
 
 Lab: syntax definition of QL. Name resolution. `Syntax.rsc`
+
+Background material: Pure and declarative syntax definition: paradise lost and regained,  https://doi.org/10.1145/1869459.1869535 
 
 ### Week 3
 
@@ -103,7 +107,7 @@ Lab: type checker for QL, cyclic dependency check. `Check.rsc`
 
 Lecture: interpreters, Salix library.
 
-Lab: evaluator, renderer (abstract) in `Eval.rsc`; web app in `App.rsc`.
+Lab: evaluator, renderer (abstract) in `Eval.rsc`; web app in `App.rsc`. Think about division by zero (NB: QL does not feature exceptions of any sort).
 
 ### Week 5
 
@@ -111,12 +115,15 @@ Lecture: code generation
 
 Lab: compiler for QL to HTML and plain Javascript (do not use a framework!). Ensure you implement the fixpoint behavior (see `Eval.rsc`) correctly, and be aware that Javascript has floats, and no integers. `Compile.rsc`
 
+Background material: Code Generation by Model Transformation,  https://doi.org/10.1007/978-3-540-69927-9_13
+
 ### Week 6
 
 Lecture: program transformation and model transformation. Partial evaluation. 
 
 Lab: flattening, formatting (pretty printing), dependency visualization, partial evaluation. `Flatten.rsc`, `Format.rsc`, `Visualize.rsc`, `PartialEvaluation.rsc`.
 
+Background material: Tutorial Online Partial Evaluation, https://doi.org/10.48550/arXiv.1109.0781
 
 ### Week 7
 
@@ -182,4 +189,12 @@ Extend the expression language with field access for record types. Type check th
 
 - Currency data type: extend QL with a `currency[x]` data type where `x` represents the name of a currency (e.g. euro, dollar etc.). Type check that different currencies are not added/subtracted. Check that only addition and subtraction are allowed, plus division/multiplication with an integer or a percentage (add this operator). At run-time ensure that computations are executed correctly w.r.t. rounding. Don't use JS's floats for this.  Render currencies *as* currencies. NB: this introduces operator overloading in QL. 
 
+Background material: 
+- Language Composition Untangled, https://doi.org/10.1145/2427048.2427055
+- Modular language implementation in Rascal – experience report, https://doi.org/10.1016/j.scico.2015.11.003
 
+
+
+### Week 8
+
+Wrap-up, checking lab solutions.

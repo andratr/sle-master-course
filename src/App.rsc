@@ -41,14 +41,14 @@ Input msg2input(updateStr(str q, str s)) = user(q, vstr(s));
 Model update(Msg msg, Model model) = model[env=eval(model.form, msg2input(msg), model.env)];
 
 // Salix view rendering works by "drawing" on an implicit HTML canvas.
-// Note how html elements are drawn, and how element nesting is achieved with
+// Look at the Salix demo folder to learn how html elements are drawn, and how element nesting is achieved with
 // nesting of void-closures.
 void view(Model model) {
     h3("<model.form.top.title>"[1..-1]);
     // fill in the rest
 }
 
-// fill in quetions rendering, but only if they are enabled.
+// fill in: question rendering, but only if they are enabled.
 void viewQuestion(Question q, Model model) {
 
 }

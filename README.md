@@ -1,6 +1,84 @@
 
 # SLE Master Course
 
+
+## Preliminaries for the lab
+
+Please install [VS Code](https://code.visualstudio.com/) and then the [Rascal VS Code extension](https://marketplace.visualstudio.com/items?itemName=usethesource.rascalmpl) (you can also find it in the extension browser).
+
+Fork [this](https://github.com/cwi-swat/sle-master-course) repository to your own Github account, and clone it to your local machine (_NB: don't rename the folder!_). Finally, go to the File menu of VS Code and select "Add Folder to workspace", navigate to where you've cloned the repo, and select that directory. Note: you have to fork the repo, otherwise you won't be able to commit/push!
+
+The project comes with pre-wired IDE support for the Questionnaire Language (QL). 
+To enable this: open the file `IDE.rsc`, and press the link at the top of the file "Import in new Rascal Terminal". Then issue the following command in the terminal: `main();` (followed by enter).
+As soon your implementation of various components progresses the IDE support will start working. For instance, if you finish your grammar, and reissue `main()` (see above) then syntax highlighting will be enabled. 
+
+## QL: a DSL for Questionnaires
+
+The course is based on a domain-specific language (DSL) for questionnaires, called QL. A QL program consists of a form, containing questions. A question can be a normal question, that expects an answer (i.e. is answerable), or a computed question. A computed question has an associated expression which defines its value. 
+
+Both kinds of questions have a prompt (to show to the user), an identifier (its name), and a type. The language supports boolean, integer and string types.
+
+Questions can be conditional and the conditional construct comes in two variants: **if** and **if-else**. A block construct using `{}` can be used to group questions.
+
+Questions are enabled and disabled when different values are entered, depending on their conditional context.
+
+Here’s a simple questionnaire in QL from the domain of tax filing:
+```
+form "Tax office example" { 
+  "Did you sell a house in 2010?" // the prompt of the question
+    hasSoldHouse: boolean         // and its name and type
+  "Did you buy a house in 2010?"
+    hasBoughtHouse: boolean
+  "Did you enter a loan?"
+    hasMaintLoan: boolean
+    
+  if (hasSoldHouse) { // conditional block
+    "What was the selling price?"
+      sellingPrice: integer
+    "Private debts for the sold house:"
+      privateDebt: integer
+    "Value residue:"
+      valueResidue: integer =      // a computed question
+        sellingPrice - privateDebt // has an expression 
+  }
+}
+```
+
+A full type checker of QL detects:
+- references to undefined questions
+- duplicate question declarations with different types
+- conditions that are not of the type boolean
+- operands of invalid type to operators
+- duplicate prompts for different questions (warning)
+- cyclic data and control dependencies
+- warnings for empty conditional bodies (both if an else)
+- warning for empty prompts
+- warning for useless conditions (i.e., true/false)
+
+Different data types in QL map to different (default) GUI widgets. For instance, boolean would be represented as a checkbox, integers as text fields with numeric sliders, and strings as text fields. The HTML form corresponding to the QL program from above could look as follows in Chrome:
+
+<img src="https://github.com/cwi-swat/testing-dsls-with-dsls/blob/main/examples/tax.png" alt="Screenshot of the tax form" width="280" height="400" />
+
+See the folder `examples/` for example QL programs. Opening a QL file will show links at the top for compiling, and running QL programs. 
+Running a questionnaire immediately opens a browser pane in VS Code. Compiling will result in an HTML file and Javascript file, as soon as you finish the compiler. Opening
+them in a browser will again execute the questionnaire (possibly with a slightly different layout).
+
+
+## TestQL: a DSL for testing the QL DSL
+
+TestQL is DSL for testing QL. In fact, it's an extension of the QL language using Rascal's support for extensible syntax definition. Using TestQL, tests can be expressed in a human readable, declarative format. 
+
+TestQL files end with the extension `testql`, and have IDE support enabled, just like the QL programs written in files with the `myql` extension. For the test files the IDE support includes clickable links:
+
+- to execute the whole test suite 
+
+- to show test coverage of the test suite (i.e. how much of the syntax of the DSL has been covered by tests.)
+
+- to run an individual test.
+
+You can find different types of tests in the file `alltests.ql`, divided over different sections. Below we detail three kinds of tests: static checking, dynamics semantics and syntax, and rendering.
+You can use the file to test your implementation of the type checker and the interpreter. 
+
 ## Course Schedule
 
 ### Week 1
@@ -13,7 +91,7 @@ Lab assignment: warm-up exercises (see `tutorial/Series1.rsc` and `tutorial/Seri
 
 Lecture: syntax and structure. Parsing, disambiguation, Abstract Syntax Trees (ASTs), name binding.
 
-Lab: syntax definition of QL. Name resolution.
+Lab: syntax definition of QL. Name resolution. `Syntax.rsc`
 
 ### Week 3
 
@@ -25,19 +103,19 @@ Lab: type checker for QL, cyclic dependency check. `Check.rsc`
 
 Lecture: interpreters, Salix library.
 
-Lab: evaluator, renderer (abstract) in `Eval.rsc`; web app in `App.rsc` (reuse `eval` where possible)
+Lab: evaluator, renderer (abstract) in `Eval.rsc`; web app in `App.rsc`.
 
 ### Week 5
 
 Lecture: code generation
 
-Lab: compiler for QL to HTML and Javascript. Ensure you implement the fixpoint behavior (see `Eval.rsc`) correctly, and be aware that Javascript has floats, and no integers.
+Lab: compiler for QL to HTML and plain Javascript (do not use a framework!). Ensure you implement the fixpoint behavior (see `Eval.rsc`) correctly, and be aware that Javascript has floats, and no integers. `Compile.rsc`
 
 ### Week 6
 
 Lecture: program transformation and model transformation. Partial evaluation. 
 
-Lab: formatting (pretty printing), dependency visualization, partial evaluation.
+Lab: flattening, formatting (pretty printing), dependency visualization, partial evaluation. `Flatten.rsc`, `Format.rsc`, `Visualize.rsc`, `PartialEvaluation.rsc`.
 
 
 ### Week 7
@@ -104,82 +182,4 @@ Extend the expression language with field access for record types. Type check th
 
 - Currency data type: extend QL with a `currency[x]` data type where `x` represents the name of a currency (e.g. euro, dollar etc.). Type check that different currencies are not added/subtracted. Check that only addition and subtraction are allowed, plus division/multiplication with an integer or a percentage (add this operator). At run-time ensure that computations are executed correctly w.r.t. rounding. Don't use JS's floats for this.  Render currencies *as* currencies. NB: this introduces operator overloading in QL. 
 
-
-
-## Preliminaries for the lab
-
-Please install [VS Code](https://code.visualstudio.com/) and then the [Rascal VS Code extension](https://marketplace.visualstudio.com/items?itemName=usethesource.rascalmpl) (you can also find it in the extension browser).
-
-Fork [this](https://github.com/cwi-swat/sle-master-course) repository to your own Github account, and clone it to your local machine (_NB: don't rename the folder!_). Finally, go to the File menu of VS Code and select "Add Folder to workspace", navigate to where you've cloned the repo, and select that directory. Note: you have to fork the repo, otherwise you won't be able to commit/push!
-
-The project comes with pre-wired IDE support for the Questionnaire Language (QL). 
-To enable this: open the file `IDE.rsc`, and press the link at the top of the file "Import in new Rascal Terminal". Then issue the following command in the terminal: `main();` (followed by enter).
-As soon your implementation of various components progresses the IDE support will start working. For instance, if you finish your grammar, and reissue `main()` (see above) then syntax highlighting will be enabled. 
-
-## QL: a DSL for Questionnaires
-
-The course is based on a domain-specific language (DSL) for questionnaires, called QL. A QL program consists of a form, containing questions. A question can be a normal question, that expects an answer (i.e. is answerable), or a computed question. A computed question has an associated expression which defines its value. 
-
-Both kinds of questions have a prompt (to show to the user), an identifier (its name), and a type. The language supports boolean, integer and string types.
-
-Questions can be conditional and the conditional construct comes in two variants: **if** and **if-else**. A block construct using `{}` can be used to group questions.
-
-Questions are enabled and disabled when different values are entered, depending on their conditional context.
-
-Here’s a simple questionnaire in QL from the domain of tax filing:
-```
-form "Tax office example" { 
-  "Did you sell a house in 2010?" // the prompt of the question
-    hasSoldHouse: boolean         // and its name and type
-  "Did you buy a house in 2010?"
-    hasBoughtHouse: boolean
-  "Did you enter a loan?"
-    hasMaintLoan: boolean
-    
-  if (hasSoldHouse) { // conditional block
-    "What was the selling price?"
-      sellingPrice: integer
-    "Private debts for the sold house:"
-      privateDebt: integer
-    "Value residue:"
-      valueResidue: integer =      // a computed question
-        sellingPrice - privateDebt // has an expression 
-  }
-}
-```
-
-A full type checker of QL detects:
-- references to undefined questions
-- duplicate question declarations with different types
-- conditions that are not of the type boolean
-- operands of invalid type to operators
-- duplicate prompts for different questions (warning)
-- cyclic data and control dependencies
-- warnings for empty conditional bodies (both if an else)
-- warning for empty prompts
-- warning for 
-
-Different data types in QL map to different (default) GUI widgets. For instance, boolean would be represented as a checkbox, integers as text fields with numeric sliders, and strings as text fields. The HTML form corresponding to the QL program from above could look as follows in Chrome:
-
-<img src="https://github.com/cwi-swat/testing-dsls-with-dsls/blob/main/examples/tax.png" alt="Screenshot of the tax form" width="280" height="400" />
-
-See the folder `examples/` for example QL programs. Opening a QL file will show links at the top for compiling, and running QL programs. 
-Running a questionnaire immediately opens a browser pane in VS Code. Compiling will result in an HTML file and Javascript file, as soon as you finish the compiler. Opening
-them in a browser will again execute the questionnaire (possibly with a slightly different layout).
-
-
-## TestQL: a DSL for testing the QL DSL
-
-TestQL is DSL for testing QL. In fact, it's an extension of the QL language using Rascal's support for extensible syntax definition. Using TestQL, tests can be expressed in a human readable, declarative format. 
-
-TestQL files end with the extension `testql`, and have IDE support enabled, just like the QL programs written in files with the `myql` extension. For the test files the IDE support includes clickable links:
-
-- to execute the whole test suite 
-
-- to show test coverage of the test suite (i.e. how much of the syntax of the DSL has been covered by tests.)
-
-- to run an individual test.
-
-You can find different types of tests in the file `alltests.ql`, divided over different sections. Below we detail three kinds of tests: static checking, dynamics semantics and syntax, and rendering.
-You can use the file to test your implementation of the type checker and the interpreter. 
 

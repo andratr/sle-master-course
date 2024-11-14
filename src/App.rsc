@@ -14,7 +14,7 @@ import String;
 // containing the questionnaire and its current run-time state (env).
 alias Model = tuple[start[Form] form, VEnv env];
 
-App[Model] runQL(start[Form] ql) = webApp(qlApp(ql), |project://testing-dsls-with-dsls/src|);
+App[Model] runQL(start[Form] ql) = webApp(qlApp(ql), |project://sle-master-course/src|);
 
 SalixApp[Model] qlApp(start[Form] ql, str id="root") 
   = makeApp(id, 
@@ -45,77 +45,10 @@ Model update(Msg msg, Model model) = model[env=eval(model.form, msg2input(msg), 
 // nesting of void-closures.
 void view(Model model) {
     h3("<model.form.top.title>"[1..-1]);
-    form(() {
-        table(() {
-            tbody(() {
-                for (Question q <- model.form.top.questions) {
-                    viewQuestion(q, model);
-                }
-            });
-        });
-    });
+    // fill in the rest
 }
 
+// fill in quetions rendering, but only if they are enabled.
 void viewQuestion(Question q, Model model) {
 
-    switch (q) {
-        case (Question)`<Str s> <Id x>: <Type t>`: {
-            tr(() {
-                td(() {
-                    label("<s>"[1..-1]);
-                });
-
-                td(() {
-                    switch (<t, model.env["<x>"]>) {
-                        case <(Type)`integer`, vint(int i)>:
-                            input(\type("number"), \value("<i>"), onChange(partial(updateInt, "<x>")));
-                        case <(Type)`boolean`, vbool(bool b)>:
-                            input(\type("checkbox"),checked(b), onClick(updateBool("<x>", !b)));
-                        case <(Type)`string`, vstr(str s)>:
-                            input(\type("text"), \value("<s>"), onChange(partial(updateStr, "<x>")));
-                    }
-                });
-            });
-        }
-
-        case (Question)`<Str s> <Id x>: <Type t> = <Expr _>`: {
-            tr(() {
-                td(() {
-                    label("<s>"[1..-1]);
-                });
-
-                td(() {
-                    switch (<t, model.env["<x>"]>) {
-                        case <(Type)`integer`, vint(int i)>:
-                            input(\type("number"), \value("<i>"), disabled(true));
-                        case <(Type)`boolean`, vbool(bool b)>:
-                            input(\type("checkbox"),checked(b), disabled(true));
-                        case <(Type)`string`, vstr(str s)>:
-                            input(\type("text"), \value("<s>"), disabled(true));
-                    }    
-                });   
-            });
-        }
-
-        case (Question)`if (<Expr cond>) <Question then>`:
-            if (eval(cond, model.env) == vbool(true)) {
-                viewQuestion(then, model);
-            }
-
-        case (Question)`if (<Expr cond>) <Question then> else <Question els>`:
-            if (eval(cond, model.env) == vbool(true)) {
-                viewQuestion(then, model);
-            }
-            else {
-                viewQuestion(els, model);
-            }
-
-        case (Question)`{<Question* qs>}`:
-            for (Question q <- qs) {
-                viewQuestion(q, model);
-            }
-
-        default: throw "unknown question type";
-
-    }
 }

@@ -1,4 +1,4 @@
-Project-Name: sle-master-course
+Project-Name: sle-master-course-1
 Source: src
 Require-Libraries: |lib://rascal-lsp|
 

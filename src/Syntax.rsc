@@ -1,13 +1,15 @@
 module Syntax
 
+// Import the necessary Rascal libraries
 extend lang::std::Layout;
 extend lang::std::Id;
 
+// Define the starting syntax for the form structure
 start syntax Form 
-  = form: "form" Str title "{" Question* questions "}"; 
+  = form: "form" Str title "{" Question* questions "}";
 
-lexical Str = [\"]![\"]* [\"];
-
+// Define lexical rules for strings, booleans, integers, and identifiers
+lexical Str = "\"" ([^\"])* "\"";
 lexical Bool = "true" | "false";
 
 lexical Int = [\-]?[0-9]+ ; 

@@ -1,5 +1,9 @@
 module stm::Check
 
+
+import stm::Syntax;
+import Message;
+
 /*
 
 Errors
@@ -12,3 +16,16 @@ Warnings
 - Self transition
 
 */
+
+
+set[Message] check(start [Machine] m, RefGraph refs){
+    set [Message] msrg = {};
+    for (<loc u, str x> <-refs.uses, !(<x, _> <- refs.defs)){
+        msrg += {error("undefined state", u)};
+    }
+
+
+    
+    return msrg;
+    
+}
